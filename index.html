@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Snake Game</title>
+    <style>
+        #gameCanvas {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="gameCanvas" width="640" height="480"></canvas>
+
+    <script>
+        var canvas = document.getElementById("gameCanvas");
+        var context = canvas.getContext("2d");
+        var width = canvas.width;
+        var height = canvas.height;
+
+        var snakeSize = 20;
+        var snakeX = width / 2;
+        var snakeY = height / 2;
+        var snakeDX = 0;
+        var snakeDY = 0;
+
+        var foodSize = 20;
+        var foodX = Math.floor(Math.random() * (width - foodSize)) / foodSize * foodSize;
+        var foodY = Math.floor(Math.random() * (height - foodSize)) / foodSize * foodSize;
+
+        var gameSpeed = 10;
+        var gameRunning = false;
+
+        document.addEventListener("keydown", changeDirection);
+
+        function changeDirection(event) {
+            var keyPressed = event.keyCode;
+            if (keyPressed === 37 && snakeDX !== snakeSize) {
+                snakeDX = -snakeSize;
+                snakeDY = 0;
+            }
+            else if (keyPressed === 38 && snakeDY !== snakeSize) {
+                snakeDY = -snakeSize;
+                snakeDX = 0;
+            }
+            else if (keyPressed === 39 && snakeDX !== -snakeSize) {
+                snakeDX = snakeSize;
+                snakeDY = 0;
+            }
+            else if (keyPressed === 40 && snakeDY !== -snakeSize) {
+                snakeDY = snakeSize;
+                snakeDX = 0;
+            }
+        }
+
+        function update() {
+            snakeX += snakeDX;
+            snakeY += snakeDY;
+
+            if (snakeX === foodX && snakeY === foodY) {
+                foodX = Math.floor(Math.random() * (width - foodSize)) / foodSize * foodSize;
+                foodY = Math.floor(Math.random() * (height - foodSize)) / foodSize * foodSize;
+            }
+        }
+
+        function draw() {
+            context.clearRect(0, 0, width, height);
+
+            context.fillStyle = "green";
+            context.fillRect(snakeX, snakeY, snakeSize, snakeSize);
+
+            context.fillStyle = "red";
+            context.fillRect(foodX, foodY, foodSize, foodSize);
+        }
+
+        function gameLoop() {
+            if (!gameRunning) {
+                return;
+            }
+
+            update();
+            draw();
+
+            setTimeout(gameLoop, 1000 / gameSpeed);
+        }
+
+        function startGame() {
+            gameRunning = true;
+            gameLoop();
+        }
+        
+        // Call the startGame function to begin the game
+        startGame();
+    </script>
+</body>
+</html>
