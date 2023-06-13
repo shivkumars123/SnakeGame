@@ -36,6 +36,9 @@
         var foodX = Math.floor(Math.random() * (width - foodSize)) / foodSize * foodSize;
         var foodY = Math.floor(Math.random() * (height - foodSize)) / foodSize * foodSize;
 
+        var snakeImage = new Image();
+        snakeImage.src = "snake.png"; // Replace with the path to your snake image
+
         var gameSpeed = 10;
         var gameRunning = false;
 
@@ -74,8 +77,7 @@
         function draw() {
             context.clearRect(0, 0, width, height);
 
-            context.fillStyle = "#00ff00";
-            context.fillRect(snakeX, snakeY, snakeSize, snakeSize);
+            context.drawImage(snakeImage, snakeX, snakeY, snakeSize, snakeSize);
 
             context.fillStyle = "#ff0000";
             context.fillRect(foodX, foodY, foodSize, foodSize);
