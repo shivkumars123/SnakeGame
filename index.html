@@ -3,13 +3,22 @@
 <head>
     <title>Snake Game</title>
     <style>
+        body {
+            background-color: #1a1a1a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
         #gameCanvas {
-            border: 50px solid black;
+            border: 2px solid #ffffff;
         }
     </style>
 </head>
 <body>
-    <canvas id="gameCanvas" width="6400" height="4800"></canvas>
+    <canvas id="gameCanvas" width="640" height="480"></canvas>
 
     <script>
         var canvas = document.getElementById("gameCanvas");
@@ -65,10 +74,10 @@
         function draw() {
             context.clearRect(0, 0, width, height);
 
-            context.fillStyle = "green";
+            context.fillStyle = "#00ff00";
             context.fillRect(snakeX, snakeY, snakeSize, snakeSize);
 
-            context.fillStyle = "red";
+            context.fillStyle = "#ff0000";
             context.fillRect(foodX, foodY, foodSize, foodSize);
         }
 
